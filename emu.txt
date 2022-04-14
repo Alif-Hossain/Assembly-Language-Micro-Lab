@@ -1,0 +1,296 @@
+;input new line output
+
+.model small
+.stack 100h
+.code
+
+main proc
+    mov ah,1
+    int 21h      ;input
+    mov bl,al  
+    
+    
+    mov ah,2
+    mov dl, 10  ;new line
+    int 21h
+    mov dl,13
+    int 21h
+             
+             
+    mov ah,2
+    mov dl, bl    ;output
+    int 21h
+    
+    
+    exit:
+    mov ah,4ch
+    int 21h
+    main endp
+end main
+    
+--------------------------
+
+; user input
+ 
+.model small
+.stack 100h
+.data
+a db 5
+b db ?
+.code
+
+main proc
+    mov ax, @data
+    mov ds, ax
+    
+    mov ah,1
+    int 21h     ; input b  
+    mov b, al   
+    
+    mov ah,2
+    mov dl,10
+    int 21h     ; new line
+    mov dl, 13
+    int 21h
+    
+    mov ah,2
+    mov dl,a 
+    add dl, 48  ; asci of 0
+    int 21h
+    
+    exit:
+    mov ah, 4ch
+    int 21h
+    main endp
+end main 
+------------------------
+
+; string print 
+
+.model small
+.stack 100h
+.data
+a db 'Bangladesh Dhaka $'
+.code
+
+main proc
+    mov ax, @data
+    mov ds, ax
+    
+    mov ah,9
+    lea dx, a
+    int 21h
+    
+    exit:
+    mov ah, 4ch
+    int 21h
+    main endp
+end main
+-----------------------
+; t line print 
+
+.model small
+.stack 100h
+.data
+a db 'Bangladesh Dhaka $' 
+m db 'Alif Hossain $'
+.code
+
+main proc
+    mov ax, @data
+    mov ds, ax
+    
+    mov ah,9
+    lea dx, a
+    int 21h
+           
+    
+        mov ah,2
+    mov dl,10
+    int 21h     ; new line
+    mov dl, 13
+    int 21h 
+    
+           
+    mov ah, 9
+    lea dx, m
+    int 21h
+           
+    exit:
+    mov ah, 4ch
+    int 21h
+    main endp
+end main
+------------------------
+
+;user message 2 string and input
+
+.model small
+.stack 100h
+.data
+a db 'Enter a Number: $'
+b db 'The number is: $'
+
+.code
+
+main proc 
+    mov ax , @data
+    mov ds, ax
+    
+    mov ah, 9  ;a...
+    lea dx, a
+    int 21h
+    
+    mov ah,1
+    int 21h    ; user input
+    mov bl, al 
+    
+    mov ah,2
+    mov dl,10
+    int 21h     ; new line
+    mov dl, 13
+    int 21h
+    
+    mov ah, 9
+    lea dx, b  ; b...
+    int 21h 
+    
+    mov ah, 2
+    mov dl, bl  ;output
+    int 21h
+    
+    exit:
+    mov ah, 4ch
+    int 21h
+    main endp
+end main
+-------------------------
+; add 2 num user input
+
+.model small
+.stack 100h
+.code
+
+main proc
+    mov ah,1
+    int 21h
+    mov bl,al
+    
+    mov ah,1
+    int 21h
+    mov bh,al
+    
+    add bl,bh 
+    
+    mov ah,2
+    mov dl,bl
+    sub dl, 48 ;show out
+    int 21h
+    
+    exit:
+    mov ah, 4ch
+    int 21h
+    main endp
+end main
+    ------------------
+
+; add 2 num 
+
+.model small
+.stack 100h
+.code
+.data
+ main proc
+    mov al,4
+    add al, 48
+    
+    mov ah, 5
+    add ah, 48
+    
+    add al, ah
+    sub al, 48
+    mov dl, al
+    
+    mov ah,2
+    int 21h
+    
+    main endp
+ end main
+----------------------------
+; print A
+
+.model small
+.stack 100h
+.code
+.data
+ main proc
+    mov al, 65
+    mov dl, al
+    
+    
+    
+    mov ah,2
+    int 21h
+    
+    main endp
+ end main
+    -----------------
+; hello
+; hello
+
+INCLUDE 'EMU8086.INC'
+.model small
+.stack 100h
+
+ main proc
+      start:
+      printn 'Hello'
+      
+      jmp start
+
+    
+    main endp
+ end main
+-------------------
+; My name is Alif......
+
+INCLUDE 'EMU8086.INC'
+.model small
+.stack 100h
+
+ main proc
+      
+      printn 'My Name is '    
+      print 'Alif'
+      mov ah, 4ch
+      int 21h
+      
+
+    
+    main endp
+ end main
+    ------------------
+; positive negative 
+
+INCLUDE 'EMU8086.INC'
+.model small
+.stack 100h
+
+ main proc
+      mov bl, 5
+      cmp bl, 0
+      
+      jl if
+      jge else
+      if: print 'Negative'
+      else: print 'Positive'
+      end:
+
+      
+
+    
+    main endp
+ end main
+    
+
+
